@@ -13,7 +13,11 @@ export class AppComponent {
   (F-32)*5/9 = Celcius
   */
   title = 'ng-openweather';
-  result = {};
+  result = {
+    temp: 0,
+    humidity: 0,
+    pressure: 0,
+  };
   desc = '';
   searchForm  = new FormGroup(
     {
