@@ -1,7 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import { OpenweatherServiceService } from './services/openweather-service.service';
+import { OpenweatherService } from './services/openweather.service';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +19,13 @@ export class AppComponent implements OnInit{
     pressure: 0,
   };
   desc = '';
+  cloneResult: any;
   searchForm  = new FormGroup(
     {
       city: new FormControl(''),
     }
   );
-  constructor(private openWeatherSvc: OpenweatherServiceService) {}
+  constructor(private openWeatherSvc: OpenweatherService) {}
 
   ngOnInit(){
     const cityField = this.searchForm.get('city');
@@ -40,6 +41,8 @@ export class AppComponent implements OnInit{
           console.log(data);
           this.result = data.main;
           this.desc = data.weather[0].description;
+          this.cloneResult = this.openWeatherSvc.getWeatherFromSvc();
+          console.log("Result > " + JSON.stringify(this.cloneResult));
         })
       
     });

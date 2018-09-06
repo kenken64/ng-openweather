@@ -9,7 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomMaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OpenweatherServiceService } from './services/openweather-service.service';
+import { OpenweatherService } from './services/openweather.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { OpenweatherServiceService } from './services/openweather-service.servic
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ OpenweatherServiceService ],
+  providers: [ OpenweatherService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
