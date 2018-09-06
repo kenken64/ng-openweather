@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   };
   desc = '';
   cloneResult: any;
+  listOfCities = [];
   searchForm  = new FormGroup(
     {
       city: new FormControl(''),
@@ -36,15 +37,26 @@ export class AppComponent implements OnInit{
 
     debounce.subscribe(changes => {
       console.log(changes);
-      this.openWeatherSvc.getWeather(changes)
-        .subscribe((data: any) => {
+      this.openWeatherSvc
+        .addCity(changes)
+        .subscribe((data)=>{
           console.log(data);
-          this.result = data.main;
-          this.desc = data.weather[0].description;
-          this.cloneResult = this.openWeatherSvc.getWeatherFromSvc();
-          console.log("Result > " + JSON.stringify(this.cloneResult));
-        })
+          this.openWeatherSvc.getCities().subscribe((cities)=>{
+            console.log(cities);
+            this.listOfCities = cities;
+          })
+        });
       
     });
+  }
+
+  fetchWeather(city){
+    this.openWeatherSvc.getWeather(city)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.result = data.main;
+        this.desc = data.weather[0].description;
+      })
+    
   }
 }

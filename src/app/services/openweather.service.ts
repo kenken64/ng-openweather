@@ -9,25 +9,28 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class OpenweatherService {
 
-  constructor(private http: HttpClient) { }
-  svcResponse: any;
+  cities = [];
 
-
-  getWeatherFromSvc(){
-    return this.svcResponse;
+  constructor(private http: HttpClient) { 
+    this.cities = [];
   }
-
+  
+  
   getWeather(city): Observable<any>{
     console.log("getWeather>");
     return this.http
       .get(`${environment.openweather_url}${city}&APPID=${environment.openweather_api_key}`)
       .pipe(
-        map(response => {
-          this.svcResponse = response;
-          return response
-        }),
         catchError(this.handleError('getWeather', []))
       );;
+  }
+
+  addCity(city){
+    return of(this.cities.push(city));
+  }
+
+  getCities(){
+    return of(this.cities);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

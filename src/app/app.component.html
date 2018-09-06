@@ -14,6 +14,13 @@
             <input matInput formControlName="city" placeholder="city">
           </mat-form-field>
       </form>
+      <mat-divider></mat-divider>
+      <mat-list>
+        <mat-list-item *ngFor="let city of listOfCities">
+          <p mat-line><button mat-raised-button (click)="fetchWeather(city)"> {{city | uppercase}} </button></p>
+        </mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
       <p>
         Temperature : {{result.temp}} Kelvin
       </p>
